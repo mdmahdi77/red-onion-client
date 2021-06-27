@@ -19,7 +19,7 @@ const FoodDetails = (props) => {
             .catch(err => console.log(err))
     }, [])
 
-    const foodData = currentFood.find(food => food.id == foodId)
+    const foodData = currentFood.find(food => food._id == foodId)
 
     const finalCartHandler = (foodData) => {
         foodData.quantity = quantity

@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../Login/Auth';
 
 const Navbar = (props) => {
+    const auth = useAuth()
     return (
         <div>
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -16,10 +18,13 @@ const Navbar = (props) => {
                                 <Link class="nav-link active" aria-current="page" to="/home">Home</Link>
                             </li>
                             <li class="nav-item">
-                                <Link class="nav-link" to="cart">Cart {(props.cart?.length)}</Link>
+                                <Link class="nav-link" to="/cart">Cart {(props.cart?.length)}</Link>
                             </li>
                             <li class="nav-item">
-                                <Link class="nav-link" to="login">Login</Link>
+                                <Link class="nav-link" to="/login">Login</Link>
+                            </li>
+                            <li class="nav-item">
+                                <Link class="nav-link" to="/">{auth.user?.displayName}</Link>
                             </li>
                         </ul>
                     </div>
