@@ -7,3 +7,20 @@
     line-height: 30px;
     padding: 0 10px !important;
 }
+.success-mgs{
+    animation: show-hide 1.5s ease-in-out 1 forwards;
+}
+@keyframes show-hide{
+    0%{
+        opacity: 0;
+    }
+    50%{
+        opacity: 1;
+    }
+    75%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}

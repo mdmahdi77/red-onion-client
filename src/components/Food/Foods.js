@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import FoodItem from './FoodItem';
+import Preloader from '../Preloader/Preloader'
 import './Food.css'
 
 const Foods = () => {
     const [foods, setFoods] = useState([]);
     const [selectedFoodType, setSelectedFoodType] = useState("Breakfast");
+    const [preloaderVisibility, setPreloaderVisibility] = useState("block")
 
 
     useEffect(() => {
@@ -12,6 +14,7 @@ const Foods = () => {
             .then(res => res.json())
             .then(data => {
                 setFoods(data);
+                setPreloaderVisibility("none")
             })
             .catch(err => console.log(err))
     }, [foods.length])
@@ -37,6 +40,7 @@ const Foods = () => {
                 </nav>
 
                 <div className="row my-5">
+                    <Preloader visibility={preloaderVisibility} />
                     {
                         selectedFoods.map(food => <FoodItem key={food._id} food={food} />)
                     }

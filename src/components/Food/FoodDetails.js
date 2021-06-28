@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCartArrowDown, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import Preloader from '../Preloader/Preloader'
 import './FoodDetails.css'
 
 const FoodDetails = (props) => {
@@ -9,12 +12,15 @@ const FoodDetails = (props) => {
     const [currentFood, setCurrentFood] = useState([])
     const [quantity, setQuantity] = useState(1)
     const [selectBigImg, setSelectBigImg] = useState(null)
+    const [isSuccess, setIsSuccess] = useState(false)
+    const [preloaderVisibility, setPreloaderVisibility] = useState("block")
 
     useEffect(() => {
         fetch(`http://localhost:8000/foods`)
             .then(res => res.json())
             .then(data => {
                 setCurrentFood(data);
+                setPreloaderVisibility("none")
             })
             .catch(err => console.log(err))
     }, [])
@@ -24,10 +30,17 @@ const FoodDetails = (props) => {
     const finalCartHandler = (foodData) => {
         foodData.quantity = quantity
         props.cartHandler(foodData)
+        setIsSuccess(true)
     }
+
+    if(isSuccess){
+        setTimeout(() => setIsSuccess(false), 1500)
+    }
+    console.log(isSuccess)
 
     return (
         <div className="foodDetails my-5 pt-5 container">
+            <Preloader visibility={preloaderVisibility} />
             <div className="row">
                 <div className="col-md-6">
                     <h1>{foodData?.name}</h1>
@@ -41,7 +54,10 @@ const FoodDetails = (props) => {
                         </div>
                     </div>
                     <div className="action d-flex align-items-center">
-                        <button className="btn btn-danger btn-rounded mb-2" onClick={() => finalCartHandler(foodData)}>Add</button>
+                        <button className="btn btn-danger btn-rounded mb-2" onClick={() => finalCartHandler(foodData)}><FontAwesomeIcon icon={faCartArrowDown} /> / Add</button>
+                        {
+                            isSuccess && <p className="text-success ml-3 success-mgs"><FontAwesomeIcon icon={faCheckCircle} />  Item added to Cart</p>
+                        }
                     </div>
                     {/* <div className="more-images">
                         {

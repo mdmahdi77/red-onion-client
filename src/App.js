@@ -13,6 +13,7 @@ import Home from './components/Home/Home'
 import { AuthProvider, PrivateRoute } from "./components/Login/Auth";
 import Login from "./components/Login/Login";
 import Navbar from "./components/Navbar/Navbar";
+import OrderComplete from "./components/OrderComplete/OrderComplete";
 
 function App() {
   const [cart, setCart] = useState([])
@@ -91,6 +92,10 @@ function App() {
           </Route>
           <Route path="/login">
             <Login></Login>
+          </Route>
+          <Route path="/orderComplete">
+            <Navbar cart={cart} />
+            <OrderComplete deliveryDetails={deliveryDetails} orderId={orderId} />
           </Route>
           <Route path="/">
             <Home></Home>

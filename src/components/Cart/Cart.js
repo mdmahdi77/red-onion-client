@@ -5,6 +5,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import Payment from '../Payment/Payment';
 import { useState } from 'react';
 import { useAuth } from '../Login/Auth';
+import {Link} from 'react-router-dom';
 
 const Cart = (props) => {
     console.log(props)
@@ -114,7 +115,9 @@ const Cart = (props) => {
                         {
                             totalQuantity ? 
                             paid ?
-                            <button className="btn btn-block btn-danger" onClick={ () => props.clearCart()}>Check out your food</button>
+                            <Link to="/orderComplete">
+                                <button className="btn btn-block btn-danger" onClick={ () => props.clearCart()}>Check out your food</button>
+                            </Link>
                             :
                                 <button disabled className="btn btn-block btn-secondary">Check Out Your Food</button>
                             :
